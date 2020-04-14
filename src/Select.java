@@ -26,9 +26,11 @@ public class Select {
         System.err.println("medians: " + Arrays.toString(medians));
 
         if (medians.length == 1) {
+            comparisons++;
             return medians[0];
         }
         else {
+            comparisons++;
             return median(medians, 0, medians.length-1);
         }
     }
@@ -40,6 +42,7 @@ public class Select {
         int i = (beg-1);
         for (int j=beg; j<end; j++)
         {
+            comparisons++;
             if (arr[j] < pivot)
             {
                 i++;
@@ -65,22 +68,19 @@ public class Select {
         int part = partition(arr, beg, end);
 
         if (part == k) {
+            comparisons++;
             System.err.println("final: " + Arrays.toString(arr));
             return arr[k];
         } else if (part > k) {
-            comparisons++;
+            comparisons+=2;
             return get(arr, beg, part - 1, k);
         } else {
-            comparisons++;
+            comparisons+=2;
             return get(arr, part + 1, end, k);
         }
     }
 
     public int getComparisons() {
         return comparisons;
-    }
-
-    public int getSwaps() {
-        return swaps;
     }
 }
