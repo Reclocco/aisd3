@@ -1,27 +1,29 @@
+import java.util.Random;
+
 public class RandomSelect {
-    int comparisons = 0;
-    int swaps = 0;
-
     public int partition(int[] arr, int beg, int end) {
-        int pivot = arr[end];
-        int tmp;
+        Random r = new Random();
+        int pivot = arr[beg+r.nextInt(end-beg+1)];
 
-        for (int i = beg; i < end; i++) {
-            comparisons++;
-            if (arr[i] < pivot) {
-                swaps ++;
-                tmp = arr[i];
-                arr[i] = arr[beg];
-                arr[beg] = tmp;
-                beg++;
+        System.err.println("pivot: " + pivot);
+        int i = (beg-1);
+        for (int j=beg; j<end; j++)
+        {
+            if (arr[j] < pivot)
+            {
+                i++;
+
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
             }
         }
-        swaps ++;
-        tmp = arr[beg];
-        arr[beg] = pivot;
-        arr[end] = tmp;
 
-        return beg;
+        int temp = arr[i+1];
+        arr[i+1] = arr[end];
+        arr[end] = temp;
+
+        return i+1;
     }
     public int get(int[] arr, int beg, int end, int k) {
 
@@ -31,19 +33,10 @@ public class RandomSelect {
             return arr[k];
         }
         else if (part > k) {
-            comparisons++;
             return get(arr, beg, part - 1, k);
         }
         else {
-            comparisons++;
             return get(arr, part + 1, end, k);
         }
-    }
-
-    public int getComparisons(){
-        return comparisons;
-    }
-    public int getSwaps(){
-        return swaps;
     }
 }

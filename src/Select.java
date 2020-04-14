@@ -6,7 +6,6 @@ public class Select {
     int swaps = 0;
 
     public int median(int[] arr, int beg, int end) {
-        System.err.println("full: " + Arrays.toString(Arrays.copyOfRange(arr, beg, end+1)));
         int i = 0;
         int[] medians = new int[(int) Math.ceil(Arrays.copyOfRange(arr, beg, end+1).length / 5.0)];
 
@@ -20,11 +19,11 @@ public class Select {
 
 
         int[] small = Arrays.copyOfRange(arr, beg+i, end+1);
-//        System.out.println("small: " + Arrays.toString(small));
+        System.err.println("small: " + Arrays.toString(small));
 
         insertSort.sort(small, 0, small.length-1);
         medians[i/5] = small[small.length/2];
-//        System.out.println("medians: " + Arrays.toString(medians));
+        System.err.println("medians: " + Arrays.toString(medians));
 
         if (medians.length == 1) {
             return medians[0];
@@ -37,7 +36,7 @@ public class Select {
     public int partition(int[] arr, int beg, int end) {
         int pivot = median(arr, beg, end);
 
-//        System.out.println("pivot: " + pivot);
+        System.err.println("pivot: " + pivot);
         int i = (beg-1);
         for (int j=beg; j<end; j++)
         {
@@ -59,14 +58,14 @@ public class Select {
     }
 
     public int get(int[] arr, int beg, int end, int k) {
-//        System.out.println("\ngetting: " + Arrays.toString(Arrays.copyOfRange(arr, beg, end+1)));
-//        System.out.println("idx: " + beg + ", " + end);
-//        System.out.println(Arrays.toString(arr) + "\n");
+        System.err.println("\ngetting: " + Arrays.toString(Arrays.copyOfRange(arr, beg, end+1)));
+        System.err.println("low, high indexes: " + beg + ", " + end);
+        System.err.println(Arrays.toString(arr) + "\n");
 
         int part = partition(arr, beg, end);
 
         if (part == k) {
-//            System.out.println(Arrays.toString(arr));
+            System.err.println("final: " + Arrays.toString(arr));
             return arr[k];
         } else if (part > k) {
             comparisons++;
